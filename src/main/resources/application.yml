@@ -1,0 +1,10 @@
+server:
+  port: 8098
+fusion:
+  partner-id: 'test-uuid-1'
+  service-account:
+    client-id: 'local-client'
+    secret: 'EqTT2A7DKByrycaqeo3S0wvdBHd72gwO'
+spring:
+  profiles:
+    active: local
