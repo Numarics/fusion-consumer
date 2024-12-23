@@ -29,7 +29,28 @@
         <dependency>
             <groupId>com.numarics.engine</groupId>
             <artifactId>fusion-client</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
+    <build>
+        <extensions>
+            <extension>
+                <groupId>com.google.cloud.artifactregistry</groupId>
+                <artifactId>artifactregistry-maven-wagon</artifactId>
+            </extension>
+        </extensions>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>artifact-lib-registry</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>artifactregistry://europe-west6-maven.pkg.dev/numarics-shared-services-c497/maven-public-repo</url>
+        </repository>
+    </repositories>
 </project>
