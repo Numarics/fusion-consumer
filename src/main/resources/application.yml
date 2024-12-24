@@ -4,7 +4,7 @@ fusion:
   partner-id: 'test-uuid-1'
   service-account:
     client-id: 'local-client'
-    secret: 'EqTT2A7DKByrycaqeo3S0wvdBHd72gwO'
+    secret: ''
 spring:
   profiles:
     active: local
