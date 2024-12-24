@@ -26,7 +26,7 @@ public class Main {
       ClientCreateResponse response =
               clientApi.create("mihatest12", "mihatest21@t.ch", "test-client-ref-13434", 2, List.of(2));
       System.out.println(response);
-      FileInfo fileInfo = PDFToBase64JSON.getFileInfo("document_winner.pdf", ContentType.PDF.getValue());
+      FileInfo fileInfo = PDFToBase64JSON.getFileInfo("income.pdf", ContentType.PDF.getValue());
       System.out.println(
           documentApi.upload(
               response.getTenantUuid(),
