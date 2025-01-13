@@ -5,14 +5,8 @@ import com.numarics.engine.fusion.client.ClientCreateResponse;
 import com.numarics.engine.fusion.document.DocumentApi;
 import com.numarics.engine.fusion.document.DocumentDetailsResponse;
 import com.numarics.engine.fusion.document.DocumentDownloadResponse;
-import com.numarics.engine.fusion.document.DocumentUpdateRequest;
-import com.numarics.engine.fusion.document.DocumentUpdateResponse;
 import com.numarics.engine.fusion.document.DocumentUploadResponse;
 import java.util.List;
-import java.util.Set;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
