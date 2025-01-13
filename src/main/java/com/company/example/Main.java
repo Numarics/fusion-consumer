@@ -4,7 +4,7 @@ import com.numarics.engine.fusion.client.ClientApi;
 import com.numarics.engine.fusion.client.ClientCreateResponse;
 import com.numarics.engine.fusion.document.DocumentApi;
 import com.numarics.engine.fusion.document.DocumentDetailsResponse;
-import com.numarics.engine.fusion.document.DocumentUpdateResponse;
+import com.numarics.engine.fusion.document.DocumentDownloadResponse;
 import com.numarics.engine.fusion.document.DocumentUploadResponse;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,27 +44,9 @@ public class Main {
           documentApi.getById(response.getTenantUuid(), (int) uploadResponse.getId());
       System.out.println(documentDetailsResponse);
 
-      DocumentUpdateResponse documentUpdateResponse =
-          documentApi.update(
-              response.getTenantUuid(),
-              (int) uploadResponse.getId(),
-              "apple_invoice_update.pdf",
-              (short) 1,
-              (short) 5,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              (short) 1,
-              null,
-              null,
-              true);
-      System.out.println(documentUpdateResponse);
+      DocumentDownloadResponse documentDownloadResponse =
+          documentApi.download(response.getTenantUuid(), (int) uploadResponse.getId());
+      System.out.println(documentDownloadResponse);
     };
   }
 }

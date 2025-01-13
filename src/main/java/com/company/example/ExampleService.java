@@ -4,6 +4,7 @@ import com.numarics.engine.fusion.client.ClientApi;
 import com.numarics.engine.fusion.client.ClientCreateResponse;
 import com.numarics.engine.fusion.document.DocumentApi;
 import com.numarics.engine.fusion.document.DocumentDetailsResponse;
+import com.numarics.engine.fusion.document.DocumentDownloadResponse;
 import com.numarics.engine.fusion.document.DocumentUpdateRequest;
 import com.numarics.engine.fusion.document.DocumentUpdateResponse;
 import com.numarics.engine.fusion.document.DocumentUploadResponse;
@@ -51,55 +52,20 @@ public class ExampleService {
     return documentUploadResponse;
   }
 
-  public DocumentUpdateResponse update() {
-    String tenantUuid =
-        "tenant-uuid-example"; // Use one from response for onboarding partner client.
-    Integer documentId = 1; // Use one from response for upload document.
-    String name = "example_doc_1.pdf";
-    Short type = 1;
-    Short status = 1;
-    List<Integer> tags = List.of(1);
-    String vendorName = "Vendor Example";
-    String vendorAddress = "Vendor Address Example";
-    String vendorTaxId = "12345";
-    String dueDate = "2024-01-01";
-    String documentDate = "2024-01-01";
-    String vatRate = "0.1";
-    String totalAmount = "100";
-    String currency = "CHF";
-    Short documentAccessType = 1;
-    List<String> emails = null;
-    Set<Short> roles = null;
-    boolean showToOperators = true;
-    DocumentUpdateResponse response =
-        documentApi.update(
-            tenantUuid,
-            documentId,
-            name,
-            type,
-            status,
-            tags,
-            vendorName,
-            vendorAddress,
-            vendorTaxId,
-            dueDate,
-            documentDate,
-            vatRate,
-            totalAmount,
-            currency,
-            documentAccessType,
-            emails,
-            roles,
-            showToOperators);
-    System.out.println(response);
-    return response;
-  }
-
   public DocumentDetailsResponse getById() {
     String tenantUuid =
         "tenant-uuid-example"; // Use one from response for onboarding partner client.
     Integer documentId = 1;
     DocumentDetailsResponse response = documentApi.getById(tenantUuid, documentId);
+    System.out.println(response);
+    return response;
+  }
+
+  public DocumentDownloadResponse download() {
+    String tenantUuid =
+        "tenant-uuid-example"; // Use one from response for onboarding partner client.
+    Integer documentId = 1;
+    DocumentDownloadResponse response = documentApi.download(tenantUuid, documentId);
     System.out.println(response);
     return response;
   }
