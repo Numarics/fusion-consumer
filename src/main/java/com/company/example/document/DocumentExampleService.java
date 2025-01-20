@@ -1,10 +1,10 @@
-package com.company.example;
+package com.company.example.document;
 
-import com.numarics.engine.fusion.client.ClientApi;
-import com.numarics.engine.fusion.client.ClientCreateResponse;
 import com.numarics.engine.fusion.document.DocumentApi;
 import com.numarics.engine.fusion.document.DocumentDetailsResponse;
 import com.numarics.engine.fusion.document.DocumentDownloadResponse;
+import com.numarics.engine.fusion.document.DocumentPreviewResponse;
+import com.numarics.engine.fusion.document.DocumentSearchResponse;
 import com.numarics.engine.fusion.document.DocumentUpdateResponse;
 import com.numarics.engine.fusion.document.DocumentUploadResponse;
 import java.util.List;
@@ -13,26 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExampleService {
-  private final ClientApi clientApi;
+public class DocumentExampleService {
   private final DocumentApi documentApi;
 
   @Autowired
-  public ExampleService(ClientApi clientApi, DocumentApi documentApi) {
-    this.clientApi = clientApi;
+  public DocumentExampleService(DocumentApi documentApi) {
     this.documentApi = documentApi;
-  }
-
-  public String createClient() {
-    String clientReference = "";
-    String email = "example@email.ch";
-    String name = "ref no";
-    int type = 2; // 1 is enterprise, 2 is private person
-    List<Integer> modules = List.of(2); // 2 for Docubox
-    ClientCreateResponse clientCreateResponse =
-        clientApi.create(name, email, clientReference, type, modules);
-    System.out.println(clientCreateResponse);
-    return clientCreateResponse.getTenantUuid();
   }
 
   public DocumentUploadResponse upload() {
@@ -42,8 +28,19 @@ public class ExampleService {
     Long documentSize = 12345L;
     String contentType = "application/pdf";
     String documentContent = "document_content"; // Document content converted to Base64
+    Boolean isScanned = false;
     DocumentUploadResponse documentUploadResponse =
-        documentApi.upload(tenantUuid, documentName, documentSize, contentType, documentContent);
+        documentApi.upload(
+            tenantUuid,
+            documentName,
+            documentSize,
+            contentType,
+            documentContent,
+            null,
+            null,
+            null,
+            null,
+            isScanned);
     System.out.println(documentUploadResponse);
     return documentUploadResponse;
   }
@@ -104,6 +101,56 @@ public class ExampleService {
             documentAccessType,
             emails,
             roles);
+    System.out.println(response);
+    return response;
+  }
+
+  public DocumentSearchResponse search() {
+    String tenantUuid =
+        "tenant-uuid-example"; // Use one from response for onboarding partner client.
+    String term = "name";
+    String name = "example_doc_1.pdf";
+    Set<Integer> tags = Set.of(1);
+    Set<Short> statuses = Set.of((short) 1);
+    String createdAtFrom = "2024-01-01";
+    String createdAtTo = "2024-01-02";
+    String contactName = "Contact Example";
+    String documentDateFrom = "2024-01-01";
+    String documentDateTo = "2024-01-01";
+    Short documentType = 1;
+    Boolean isDmbDocument = false;
+    Boolean isNewDocument = false;
+    Integer offset = 0;
+    Integer limit = 10;
+    String sortBy = "created";
+    String orderBy = "desc";
+    DocumentSearchResponse response =
+        documentApi.search(
+            tenantUuid,
+            term,
+            tags,
+            statuses,
+            createdAtFrom,
+            createdAtTo,
+            contactName,
+            documentDateFrom,
+            documentDateTo,
+            documentType,
+            isDmbDocument,
+            isNewDocument,
+            offset,
+            limit,
+            sortBy,
+            orderBy);
+    System.out.println(response);
+    return response;
+  }
+
+  public DocumentPreviewResponse preview() {
+    String tenantUuid =
+        "tenant-uuid-example"; // Use one from response for onboarding partner client.
+    Integer documentId = 1;
+    DocumentPreviewResponse response = documentApi.preview(tenantUuid, documentId);
     System.out.println(response);
     return response;
   }

@@ -1,4 +1,4 @@
-package com.company.example;
+package com.company.example.document;
 
 public enum ContentType {
   PDF("application/pdf"),

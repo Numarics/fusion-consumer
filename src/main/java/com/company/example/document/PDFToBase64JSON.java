@@ -1,4 +1,4 @@
-package com.company.example;
+package com.company.example.document;
 
 import java.io.File;
 import java.io.IOException;
