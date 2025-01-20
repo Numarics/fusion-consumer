@@ -44,29 +44,28 @@ public class Main {
       FileInfo fileInfo = PDFToBase64JSON.getFileInfo("income.pdf", ContentType.PDF.getValue());
       DocumentUploadResponse documentUploadResponse =
           documentApi.upload(
-              "307e450e-b638-4885-8acf-889c7eae54d8",
+              clientCreateResponse.getTenantUuid(),
               fileInfo.name(),
               fileInfo.size(),
               fileInfo.contentType(),
               fileInfo.content(),
               null,
-              null,
-              null,
-              null,
-              null);
+              false);
       System.out.println(documentUploadResponse);
 
       DocumentDetailsResponse documentDetailsResponse =
-          documentApi.getById("307e450e-b638-4885-8acf-889c7eae54d8", 21);
+          documentApi.getById(
+              clientCreateResponse.getTenantUuid(), (int) documentUploadResponse.getId());
       System.out.println(documentDetailsResponse);
 
       DocumentDownloadResponse documentDownloadResponse =
-          documentApi.download("307e450e-b638-4885-8acf-889c7eae54d8", 22);
+          documentApi.download(
+              clientCreateResponse.getTenantUuid(), (int) documentUploadResponse.getId());
       System.out.println(documentDownloadResponse);
 
       DocumentUpdateResponse documentUpdateResponse =
           documentApi.update(
-              "307e450e-b638-4885-8acf-889c7eae54d8",
+              clientCreateResponse.getTenantUuid(),
               21,
               null,
               (short) 2,
@@ -79,15 +78,12 @@ public class Main {
               null,
               null,
               null,
-              null,
-              null,
-              null,
               null);
       System.out.println(documentUpdateResponse);
 
       DocumentSearchResponse searchResponse =
           documentApi.search(
-              "307e450e-b638-4885-8acf-889c7eae54d8",
+              clientCreateResponse.getTenantUuid(),
               null,
               null,
               null,
@@ -106,14 +102,15 @@ public class Main {
       System.out.println(searchResponse);
 
       DocumentPreviewResponse documentPreviewResponse =
-          documentApi.preview("307e450e-b638-4885-8acf-889c7eae54d8", 20);
+          documentApi.preview(
+              clientCreateResponse.getTenantUuid(), (int) documentUploadResponse.getId());
       System.out.println(documentPreviewResponse);
 
       TagDetailsResponse tagDetailsResponse =
-          tagApi.getById("307e450e-b638-4885-8acf-889c7eae54d8", 2);
+          tagApi.getById(clientCreateResponse.getTenantUuid(), 2);
       System.out.println(tagDetailsResponse);
 
-      TagGetAllResponse tagGetAllResponse = tagApi.getAll("307e450e-b638-4885-8acf-889c7eae54d8");
+      TagGetAllResponse tagGetAllResponse = tagApi.getAll(clientCreateResponse.getTenantUuid());
       System.out.println(tagGetAllResponse);
     };
   }

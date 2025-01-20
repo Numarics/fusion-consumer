@@ -31,16 +31,7 @@ public class DocumentExampleService {
     Boolean isScanned = false;
     DocumentUploadResponse documentUploadResponse =
         documentApi.upload(
-            tenantUuid,
-            documentName,
-            documentSize,
-            contentType,
-            documentContent,
-            null,
-            null,
-            null,
-            null,
-            isScanned);
+            tenantUuid, documentName, documentSize, contentType, documentContent, null, isScanned);
     System.out.println(documentUploadResponse);
     return documentUploadResponse;
   }
@@ -79,9 +70,6 @@ public class DocumentExampleService {
     String vatRate = "0.1";
     String totalAmount = "100";
     String currency = "CHF";
-    Short documentAccessType = 1;
-    List<String> emails = null;
-    Set<Short> roles = null;
     DocumentUpdateResponse response =
         documentApi.update(
             tenantUuid,
@@ -97,10 +85,7 @@ public class DocumentExampleService {
             documentDate,
             vatRate,
             totalAmount,
-            currency,
-            documentAccessType,
-            emails,
-            roles);
+            currency);
     System.out.println(response);
     return response;
   }
@@ -108,8 +93,7 @@ public class DocumentExampleService {
   public DocumentSearchResponse search() {
     String tenantUuid =
         "tenant-uuid-example"; // Use one from response for onboarding partner client.
-    String term = "name";
-    String name = "example_doc_1.pdf";
+    String term = "example_doc_1.pdf";
     Set<Integer> tags = Set.of(1);
     Set<Short> statuses = Set.of((short) 1);
     String createdAtFrom = "2024-01-01";
