@@ -38,7 +38,7 @@ public class Main {
   public CommandLineRunner run() {
     return args -> {
       ClientCreateResponse clientCreateResponse =
-          clientApi.create("noref4", "noref4@t.ch", null, 2, List.of(2));
+          clientApi.create("Demo Client", "demo@example.ch", null, 2, List.of(2));
       System.out.println(clientCreateResponse);
 
       FileInfo fileInfo = PDFToBase64JSON.getFileInfo("income.pdf", ContentType.PDF.getValue());
@@ -49,13 +49,16 @@ public class Main {
               fileInfo.size(),
               fileInfo.contentType(),
               fileInfo.content(),
-              null,
+              List.of(1),
               false);
       System.out.println(documentUploadResponse);
 
       DocumentDetailsResponse documentDetailsResponse =
           documentApi.getById(
-              clientCreateResponse.getTenantUuid(), (int) documentUploadResponse.getId());
+              clientCreateResponse.getTenantUuid(),
+              (int) documentUploadResponse.getId(),
+              null,
+              null);
       System.out.println(documentDetailsResponse);
 
       DocumentDownloadResponse documentDownloadResponse =
@@ -66,10 +69,10 @@ public class Main {
       DocumentUpdateResponse documentUpdateResponse =
           documentApi.update(
               clientCreateResponse.getTenantUuid(),
-              21,
-              null,
+              (int) documentUploadResponse.getId(),
+              "document.pdf",
               (short) 2,
-              null,
+              (short) 4,
               List.of(2),
               null,
               null,
@@ -90,8 +93,10 @@ public class Main {
               null,
               null,
               null,
-              "2024-08-30",
-              "2024-09-01",
+              null,
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -107,7 +112,7 @@ public class Main {
       System.out.println(documentPreviewResponse);
 
       TagDetailsResponse tagDetailsResponse =
-          tagApi.getById(clientCreateResponse.getTenantUuid(), 2);
+          tagApi.getById(clientCreateResponse.getTenantUuid(), 1);
       System.out.println(tagDetailsResponse);
 
       TagGetAllResponse tagGetAllResponse = tagApi.getAll(clientCreateResponse.getTenantUuid());

@@ -40,7 +40,10 @@ public class DocumentExampleService {
     String tenantUuid =
         "tenant-uuid-example"; // Use one from response for onboarding partner client.
     Integer documentId = 1;
-    DocumentDetailsResponse response = documentApi.getById(tenantUuid, documentId);
+    Boolean includePreview = false;
+    Boolean includeContent = false;
+    DocumentDetailsResponse response =
+        documentApi.getById(tenantUuid, documentId, includePreview, includeContent);
     System.out.println(response);
     return response;
   }
@@ -104,6 +107,8 @@ public class DocumentExampleService {
     Short documentType = 1;
     Boolean isDmbDocument = false;
     Boolean isNewDocument = false;
+    Boolean includePreview = false;
+    Boolean includeContent = false;
     Integer offset = 0;
     Integer limit = 10;
     String sortBy = "created";
@@ -122,6 +127,8 @@ public class DocumentExampleService {
             documentType,
             isDmbDocument,
             isNewDocument,
+            includePreview,
+            includeContent,
             offset,
             limit,
             sortBy,
