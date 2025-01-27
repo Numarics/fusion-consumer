@@ -6,6 +6,7 @@ import com.company.example.document.PDFToBase64JSON;
 import com.numarics.engine.fusion.client.ClientApi;
 import com.numarics.engine.fusion.client.ClientCreateResponse;
 import com.numarics.engine.fusion.document.DocumentApi;
+import com.numarics.engine.fusion.document.DocumentCountByStatusResponse;
 import com.numarics.engine.fusion.document.DocumentDetailsResponse;
 import com.numarics.engine.fusion.document.DocumentDownloadResponse;
 import com.numarics.engine.fusion.document.DocumentPreviewResponse;
@@ -110,6 +111,10 @@ public class Main {
           documentApi.preview(
               clientCreateResponse.getTenantUuid(), (int) documentUploadResponse.getId());
       System.out.println(documentPreviewResponse);
+
+      DocumentCountByStatusResponse documentCountByStatusResponse =
+          documentApi.getDocumentCountByStatus(clientCreateResponse.getTenantUuid());
+      System.out.println(documentCountByStatusResponse);
 
       TagDetailsResponse tagDetailsResponse =
           tagApi.getById(clientCreateResponse.getTenantUuid(), 1);

@@ -1,6 +1,7 @@
 package com.company.example.document;
 
 import com.numarics.engine.fusion.document.DocumentApi;
+import com.numarics.engine.fusion.document.DocumentCountByStatusResponse;
 import com.numarics.engine.fusion.document.DocumentDetailsResponse;
 import com.numarics.engine.fusion.document.DocumentDownloadResponse;
 import com.numarics.engine.fusion.document.DocumentPreviewResponse;
@@ -142,6 +143,14 @@ public class DocumentExampleService {
         "tenant-uuid-example"; // Use one from response for onboarding partner client.
     Integer documentId = 1;
     DocumentPreviewResponse response = documentApi.preview(tenantUuid, documentId);
+    System.out.println(response);
+    return response;
+  }
+
+  public DocumentCountByStatusResponse getDocumentCountByStatus() {
+    String tenantUuid =
+        "tenant-uuid-example"; // Use one from response for onboarding partner client.
+    DocumentCountByStatusResponse response = documentApi.getDocumentCountByStatus(tenantUuid);
     System.out.println(response);
     return response;
   }
