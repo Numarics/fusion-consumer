@@ -6,6 +6,7 @@ import com.company.example.document.PDFToBase64JSON;
 import com.numarics.engine.fusion.client.ClientApi;
 import com.numarics.engine.fusion.client.ClientCreateResponse;
 import com.numarics.engine.fusion.document.DocumentApi;
+import com.numarics.engine.fusion.document.DocumentBulkActionResponse;
 import com.numarics.engine.fusion.document.DocumentCountByStatusResponse;
 import com.numarics.engine.fusion.document.DocumentDetailsResponse;
 import com.numarics.engine.fusion.document.DocumentDownloadResponse;
@@ -122,6 +123,15 @@ public class Main {
 
       TagGetAllResponse tagGetAllResponse = tagApi.getAll(clientCreateResponse.getTenantUuid());
       System.out.println(tagGetAllResponse);
+
+      DocumentBulkActionResponse deleteDocumentsPermanentlyResponse =
+          documentApi.deleteDocumentsPermanently(
+              clientCreateResponse.getTenantUuid(), List.of(1, 2));
+      System.out.println(deleteDocumentsPermanentlyResponse);
+
+      DocumentBulkActionResponse deleteDocumentsSoftlyResponse =
+          documentApi.deleteDocumentsSoftly(clientCreateResponse.getTenantUuid(), List.of(3));
+      System.out.println(deleteDocumentsSoftlyResponse);
     };
   }
 }

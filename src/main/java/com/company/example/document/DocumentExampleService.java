@@ -1,6 +1,7 @@
 package com.company.example.document;
 
 import com.numarics.engine.fusion.document.DocumentApi;
+import com.numarics.engine.fusion.document.DocumentBulkActionResponse;
 import com.numarics.engine.fusion.document.DocumentCountByStatusResponse;
 import com.numarics.engine.fusion.document.DocumentDetailsResponse;
 import com.numarics.engine.fusion.document.DocumentDownloadResponse;
@@ -151,6 +152,26 @@ public class DocumentExampleService {
     String tenantUuid =
         "tenant-uuid-example"; // Use one from response for onboarding partner client.
     DocumentCountByStatusResponse response = documentApi.getDocumentCountByStatus(tenantUuid);
+    System.out.println(response);
+    return response;
+  }
+
+  public DocumentBulkActionResponse deleteDocumentsPermanently() {
+    String tenantUuid =
+        "tenant-uuid-example"; // Use one from response for onboarding partner client.
+    List<Integer> documentIds = List.of(1);
+    DocumentBulkActionResponse response =
+        documentApi.deleteDocumentsPermanently(tenantUuid, documentIds);
+    System.out.println(response);
+    return response;
+  }
+
+  public DocumentBulkActionResponse deleteDocumentsSoftly() {
+    String tenantUuid =
+            "tenant-uuid-example"; // Use one from response for onboarding partner client.
+    List<Integer> documentIds = List.of(1);
+    DocumentBulkActionResponse response =
+            documentApi.deleteDocumentsSoftly(tenantUuid, documentIds);
     System.out.println(response);
     return response;
   }
