@@ -132,6 +132,14 @@ public class Main {
       DocumentBulkActionResponse deleteDocumentsSoftlyResponse =
           documentApi.deleteDocumentsSoftly(clientCreateResponse.getTenantUuid(), List.of(3));
       System.out.println(deleteDocumentsSoftlyResponse);
+
+      DocumentBulkActionResponse archiveDocumentsResponse =
+          documentApi.archive(clientCreateResponse.getTenantUuid(), List.of(3));
+      System.out.println(archiveDocumentsResponse);
+
+      DocumentBulkActionResponse restoreDocumentsResponse =
+          documentApi.restore(clientCreateResponse.getTenantUuid(), List.of(3));
+      System.out.println(restoreDocumentsResponse);
     };
   }
 }

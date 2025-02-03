@@ -168,10 +168,28 @@ public class DocumentExampleService {
 
   public DocumentBulkActionResponse deleteDocumentsSoftly() {
     String tenantUuid =
-            "tenant-uuid-example"; // Use one from response for onboarding partner client.
+        "tenant-uuid-example"; // Use one from response for onboarding partner client.
     List<Integer> documentIds = List.of(1);
     DocumentBulkActionResponse response =
-            documentApi.deleteDocumentsSoftly(tenantUuid, documentIds);
+        documentApi.deleteDocumentsSoftly(tenantUuid, documentIds);
+    System.out.println(response);
+    return response;
+  }
+
+  public DocumentBulkActionResponse archive() {
+    String tenantUuid =
+        "tenant-uuid-example"; // Use one from response for onboarding partner client.
+    List<Integer> documentIds = List.of(1);
+    DocumentBulkActionResponse response = documentApi.archive(tenantUuid, documentIds);
+    System.out.println(response);
+    return response;
+  }
+
+  public DocumentBulkActionResponse restore() {
+    String tenantUuid =
+        "tenant-uuid-example"; // Use one from response for onboarding partner client.
+    List<Integer> documentIds = List.of(1);
+    DocumentBulkActionResponse response = documentApi.restore(tenantUuid, documentIds);
     System.out.println(response);
     return response;
   }
