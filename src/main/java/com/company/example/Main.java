@@ -15,6 +15,7 @@ import com.numarics.engine.fusion.document.DocumentSearchResponse;
 import com.numarics.engine.fusion.document.DocumentUpdateResponse;
 import com.numarics.engine.fusion.document.DocumentUploadResponse;
 import com.numarics.engine.fusion.tag.TagApi;
+import com.numarics.engine.fusion.tag.TagDeleteResponse;
 import com.numarics.engine.fusion.tag.TagDetailsResponse;
 import com.numarics.engine.fusion.tag.TagGetAllResponse;
 import java.util.List;
@@ -138,8 +139,26 @@ public class Main {
       System.out.println(archiveDocumentsResponse);
 
       DocumentBulkActionResponse restoreDocumentsResponse =
-          documentApi.restore(clientCreateResponse.getTenantUuid(), List.of(3));
+          documentApi.restore(clientCreateResponse.getTenantUuid(), List.of(24));
       System.out.println(restoreDocumentsResponse);
+
+      TagDetailsResponse tagCreateResponse =
+          tagApi.create(clientCreateResponse.getTenantUuid(), "Demo Tag", false, 1, "#FFE4E5E1");
+      System.out.println(tagCreateResponse);
+
+      TagDetailsResponse tagUpdateResponse =
+          tagApi.update(
+              clientCreateResponse.getTenantUuid(),
+              (int) tagCreateResponse.getId(),
+              "Demo Tag Update",
+              true,
+              2,
+              "#FFE4E5E2");
+      System.out.println(tagUpdateResponse);
+
+      TagDeleteResponse tagDeleteResponse =
+          tagApi.delete(clientCreateResponse.getTenantUuid(), (int) tagCreateResponse.getId());
+      System.out.println(tagDeleteResponse);
     };
   }
 }
