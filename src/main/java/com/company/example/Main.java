@@ -142,22 +142,35 @@ public class Main {
           documentApi.restore(clientCreateResponse.getTenantUuid(), List.of(24));
       System.out.println(restoreDocumentsResponse);
 
-      TagDetailsResponse tagCreateResponse =
-          tagApi.create(clientCreateResponse.getTenantUuid(), "Demo Tag", false, 1, "#FFE4E5E1");
-      System.out.println(tagCreateResponse);
+      TagDetailsResponse rootTagCreateResponse =
+          tagApi.createRootTag(clientCreateResponse.getTenantUuid(), "Demo Tag", "#FFE4E5E1");
+      System.out.println(rootTagCreateResponse);
 
-      TagDetailsResponse tagUpdateResponse =
-          tagApi.update(
+      TagDetailsResponse childTagCreateResponse =
+          tagApi.createChildTag(
               clientCreateResponse.getTenantUuid(),
-              (int) tagCreateResponse.getId(),
+              "Demo Tag",
+              (int) rootTagCreateResponse.getId());
+      System.out.println(childTagCreateResponse);
+
+      TagDetailsResponse rootTagUpdateResponse =
+          tagApi.updateRootTag(
+              clientCreateResponse.getTenantUuid(),
+              (int) rootTagCreateResponse.getId(),
               "Demo Tag Update",
-              true,
-              2,
               "#FFE4E5E2");
-      System.out.println(tagUpdateResponse);
+      System.out.println(rootTagUpdateResponse);
+
+      TagDetailsResponse childTagUpdateResponse =
+          tagApi.updateChildTag(
+              clientCreateResponse.getTenantUuid(),
+              (int) rootTagCreateResponse.getId(),
+              "Demo Tag Update",
+              (int) rootTagCreateResponse.getId());
+      System.out.println(childTagUpdateResponse);
 
       TagDeleteResponse tagDeleteResponse =
-          tagApi.delete(clientCreateResponse.getTenantUuid(), (int) tagCreateResponse.getId());
+          tagApi.delete(clientCreateResponse.getTenantUuid(), (int) childTagCreateResponse.getId());
       System.out.println(tagDeleteResponse);
     };
   }
