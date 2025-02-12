@@ -31,26 +31,41 @@ public class TagExampleService {
     return response;
   }
 
-  public TagDetailsResponse create() {
+  public TagDetailsResponse createRootTag() {
     String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    String name = "Demo Tag";
-    Boolean isPrivate = false;
-    Integer parentId = 1;
+    String name = "Demo Root Tag";
     String color = "#FFE4E5E1";
-    TagDetailsResponse response = tagApi.create(tenantUuid, name, isPrivate, parentId, color);
+    TagDetailsResponse response = tagApi.createRootTag(tenantUuid, name, color);
     System.out.println(response);
     return response;
   }
 
-  public TagDetailsResponse update() {
+  public TagDetailsResponse createChildTag() {
+    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    String name = "Demo Root Tag";
+    Integer parentId = 1;
+    TagDetailsResponse response = tagApi.createChildTag(tenantUuid, name, parentId);
+    System.out.println(response);
+    return response;
+  }
+
+
+  public TagDetailsResponse updateRootTag() {
     String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
     Integer tagId = 10;
     String name = "Demo Tag Update";
-    Boolean isPrivate = false;
-    Integer parentId = 1;
     String color = "#FFE4E5E2";
-    TagDetailsResponse response =
-        tagApi.update(tenantUuid, tagId, name, isPrivate, parentId, color);
+    TagDetailsResponse response = tagApi.updateRootTag(tenantUuid, tagId, name, color);
+    System.out.println(response);
+    return response;
+  }
+
+  public TagDetailsResponse updateChildTag() {
+    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    Integer tagId = 10;
+    String name = "Demo Tag Update";
+    Integer parentId = 1;
+    TagDetailsResponse response = tagApi.updateChildTag(tenantUuid, tagId, name, parentId);
     System.out.println(response);
     return response;
   }
