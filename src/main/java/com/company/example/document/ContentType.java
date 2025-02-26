@@ -2,7 +2,9 @@ package com.company.example.document;
 
 public enum ContentType {
   PDF("application/pdf"),
-  PNG("image/png");
+  PNG("image/png"),
+  JPG("image/jpeg"),
+  JPEG("image/jpeg");
 
   private final String value;
 

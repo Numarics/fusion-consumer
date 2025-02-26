@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Base64;
 
-public final class PDFToBase64JSON {
+public final class DocumentUtil {
 
   public static FileInfo getFileInfo(String filePath, String contentType) {
     try {
