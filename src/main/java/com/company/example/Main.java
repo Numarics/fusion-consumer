@@ -14,6 +14,7 @@ import com.numarics.engine.fusion.document.DocumentPreviewResponse;
 import com.numarics.engine.fusion.document.DocumentSearchResponse;
 import com.numarics.engine.fusion.document.DocumentUpdateResponse;
 import com.numarics.engine.fusion.document.DocumentUploadResponse;
+import com.numarics.engine.fusion.document.UpdatePaymentStatusResponse;
 import com.numarics.engine.fusion.tag.TagApi;
 import com.numarics.engine.fusion.tag.TagDeleteResponse;
 import com.numarics.engine.fusion.tag.TagDetailsResponse;
@@ -49,6 +50,7 @@ public class Main {
       searchDocuments(tenantUuid);
       previewDocument(tenantUuid, documentId);
       getDocumentCountByStatus(tenantUuid);
+      updatePaymentStatus(tenantUuid, documentId, (short) 1);
 
       deleteDocumentsPermanently(tenantUuid, List.of(documentId));
       deleteDocumentsSoftly(tenantUuid, List.of(documentId));
@@ -179,6 +181,12 @@ public class Main {
     DocumentBulkActionResponse restoreDocumentsResponse =
         documentApi.restore(tenantUuid, documentIds);
     System.out.println(restoreDocumentsResponse);
+  }
+
+  private void updatePaymentStatus(String tenantUuid, Integer documentId, Short paymentStatus) {
+    UpdatePaymentStatusResponse updatePaymentStatusResponse =
+        documentApi.updatePaymentStatus(tenantUuid, documentId, paymentStatus);
+    System.out.println(updatePaymentStatusResponse);
   }
 
   private void getTagById(String tenantUuid, Integer tagId) {

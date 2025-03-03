@@ -9,6 +9,7 @@ import com.numarics.engine.fusion.document.DocumentPreviewResponse;
 import com.numarics.engine.fusion.document.DocumentSearchResponse;
 import com.numarics.engine.fusion.document.DocumentUpdateResponse;
 import com.numarics.engine.fusion.document.DocumentUploadResponse;
+import com.numarics.engine.fusion.document.UpdatePaymentStatusResponse;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,6 +182,16 @@ public class DocumentExampleService {
     String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
     List<Integer> documentIds = List.of(1); // Use one from response for upload document.
     DocumentBulkActionResponse response = documentApi.restore(tenantUuid, documentIds);
+    System.out.println(response);
+    return response;
+  }
+
+  public UpdatePaymentStatusResponse updatePaymentStatus() {
+    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    Integer documentId = 1; // Use one from response for upload document.
+    Short paymentStatus = 1;
+    UpdatePaymentStatusResponse response =
+        documentApi.updatePaymentStatus(tenantUuid, documentId, paymentStatus);
     System.out.println(response);
     return response;
   }
