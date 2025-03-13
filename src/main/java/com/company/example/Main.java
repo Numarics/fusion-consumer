@@ -15,10 +15,15 @@ import com.numarics.engine.fusion.document.DocumentSearchResponse;
 import com.numarics.engine.fusion.document.DocumentUpdateResponse;
 import com.numarics.engine.fusion.document.DocumentUploadResponse;
 import com.numarics.engine.fusion.document.UpdatePaymentStatusResponse;
+import com.numarics.engine.fusion.file.FileMetadataRequest;
+import com.numarics.engine.fusion.file.FileUploadApi;
 import com.numarics.engine.fusion.tag.TagApi;
 import com.numarics.engine.fusion.tag.TagDeleteResponse;
 import com.numarics.engine.fusion.tag.TagDetailsResponse;
 import com.numarics.engine.fusion.tag.TagGetAllResponse;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -34,6 +39,8 @@ public class Main {
 
   @Autowired private TagApi tagApi;
 
+  @Autowired private FileUploadApi fileUploadApi;
+
   public static void main(String[] args) {
     SpringApplication.run(Main.class, args);
   }
@@ -41,44 +48,47 @@ public class Main {
   @Bean
   public CommandLineRunner run() {
     return args -> {
-      String tenantUuid = createClient();
-      Integer documentId = uploadDocument(tenantUuid, "fusion-doc.pdf", ContentType.PDF);
+      // TODO: Uncomment the relevant section of the code that you would like to test.
 
-      getDocumentById(tenantUuid, documentId);
-      downloadDocument(tenantUuid, documentId);
-      updateDocument(tenantUuid, documentId);
-      searchDocuments(tenantUuid);
-      previewDocument(tenantUuid, documentId);
-      getDocumentCountByStatus(tenantUuid);
-      updatePaymentStatus(tenantUuid, documentId, (short) 1);
+      // String tenantUuid = createClient();
+      // chunkUploadDocument(tenantUuid, "income.pdf", ContentType.PDF);
+      // Integer documentId = uploadDocument(tenantUuid, "income.pdf", ContentType.PDF);
 
-      deleteDocumentsPermanently(tenantUuid, List.of(documentId));
-      deleteDocumentsSoftly(tenantUuid, List.of(documentId));
-      archiveDocuments(tenantUuid, List.of(documentId));
-      restoreDocuments(tenantUuid, List.of(documentId));
-
-      Integer tagId = 1;
-      getTagById(tenantUuid, 1);
-      getAllTags(tenantUuid);
-      Integer rootTagId = createRootTag(tenantUuid);
-      updateRootTag(tenantUuid, rootTagId);
-
-      Integer childTagId = createChildTag(tenantUuid, tagId);
-      updateChildTag(tenantUuid, childTagId);
-
-      deleteTag(tenantUuid, tagId);
+      // getDocumentById(tenantUuid, documentId);
+      // downloadDocument(tenantUuid, 6);
+      // updateDocument(tenantUuid, documentId);
+      // searchDocuments(tenantUuid);
+      // previewDocument(tenantUuid, documentId);
+      // getDocumentCountByStatus(tenantUuid);
+      // updatePaymentStatus(tenantUuid, documentId, (short) 1);
+      //
+      // deleteDocumentsPermanently(tenantUuid, List.of(documentId));
+      // deleteDocumentsSoftly(tenantUuid, List.of(documentId));
+      // archiveDocuments(tenantUuid, List.of(documentId));
+      // restoreDocuments(tenantUuid, List.of(documentId));
+      //
+      // Integer tagId = 1;
+      // getTagById(tenantUuid, 1);
+      // getAllTags(tenantUuid);
+      // Integer rootTagId = createRootTag(tenantUuid);
+      // updateRootTag(tenantUuid, rootTagId);
+      //
+      // Integer childTagId = createChildTag(tenantUuid, tagId);
+      // updateChildTag(tenantUuid, childTagId);
+      //
+      // deleteTag(tenantUuid, tagId);
     };
   }
 
   private String createClient() {
     ClientCreateResponse clientCreateResponse =
-        clientApi.create("Demo Client 1", "demo@example.ch", "demo51", 2, List.of(2));
+        clientApi.create("Demo Client", "demo-client@example.ch", "demo-client", 2, List.of(2));
     System.out.println(clientCreateResponse);
     return clientCreateResponse.getTenantUuid();
   }
 
   private int uploadDocument(String tenantUuid, String filePath, ContentType contentType) {
-    FileInfo fileInfo = DocumentUtil.getFileInfo(filePath, contentType.getValue());
+    FileInfo fileInfo = DocumentUtil.getFileInfoEncoded(filePath, contentType.getValue());
     DocumentUploadResponse documentUploadResponse =
         documentApi.upload(
             tenantUuid,
@@ -90,6 +100,54 @@ public class Main {
             false);
     System.out.println(documentUploadResponse);
     return (int) documentUploadResponse.getId();
+  }
+
+  private void chunkUploadDocument(String tenantUuid, String filePath, ContentType contentType) {
+    int chunkSize = 4096;
+    FileInfo fileInfo = DocumentUtil.getFileInfo(filePath, contentType.getValue());
+    try {
+      // Build metadata
+      FileMetadataRequest metadata =
+          FileMetadataRequest.newBuilder()
+              .setTenantUuid(tenantUuid)
+              .setName(fileInfo.name())
+              .setSize(fileInfo.size())
+              .setContentType(fileInfo.contentType())
+              .build();
+
+      // Read file in chunks
+      List<byte[]> chunks = readFileInChunks(filePath, chunkSize);
+
+      System.out.println(
+          "Starting upload for file: "
+              .concat(filePath)
+              .concat(" total chunks: ")
+              .concat(String.valueOf(chunks.size())));
+
+      // Call the upload method
+      var response = fileUploadApi.upload(metadata, chunks.iterator());
+
+      System.out.println("Upload completed. Server response: ".concat(String.valueOf(response)));
+    } catch (Exception e) {
+      System.err.println(e);
+      System.err.println(e.getMessage());
+      e.printStackTrace();
+    }
+  }
+
+  private List<byte[]> readFileInChunks(String filePath, int chunkSize) throws IOException {
+    List<byte[]> chunks = new ArrayList<>();
+    try (FileInputStream fis = new FileInputStream(filePath)) {
+      byte[] buffer = new byte[chunkSize];
+      int bytesRead;
+      while ((bytesRead = fis.read(buffer)) != -1) {
+        // Copy only valid bytes
+        byte[] chunk = new byte[bytesRead];
+        System.arraycopy(buffer, 0, chunk, 0, bytesRead);
+        chunks.add(chunk);
+      }
+    }
+    return chunks;
   }
 
   private void getDocumentById(String tenantUuid, Integer documentId) {
