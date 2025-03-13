@@ -21,9 +21,6 @@ import com.numarics.engine.fusion.tag.TagApi;
 import com.numarics.engine.fusion.tag.TagDeleteResponse;
 import com.numarics.engine.fusion.tag.TagDetailsResponse;
 import com.numarics.engine.fusion.tag.TagGetAllResponse;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -88,7 +85,7 @@ public class Main {
   }
 
   private int uploadDocument(String tenantUuid, String filePath, ContentType contentType) {
-    FileInfo fileInfo = DocumentUtil.getFileInfoEncoded(filePath, contentType.getValue());
+    FileInfo fileInfo = DocumentUtil.getFileInfo(filePath, contentType.getValue());
     DocumentUploadResponse documentUploadResponse =
         documentApi.upload(
             tenantUuid,
@@ -103,7 +100,6 @@ public class Main {
   }
 
   private void chunkUploadDocument(String tenantUuid, String filePath, ContentType contentType) {
-    int chunkSize = 4096;
     FileInfo fileInfo = DocumentUtil.getFileInfo(filePath, contentType.getValue());
     try {
       // Build metadata
@@ -115,17 +111,14 @@ public class Main {
               .setContentType(fileInfo.contentType())
               .build();
 
-      // Read file in chunks
-      List<byte[]> chunks = readFileInChunks(filePath, chunkSize);
-
       System.out.println(
           "Starting upload for file: "
               .concat(filePath)
               .concat(" total chunks: ")
-              .concat(String.valueOf(chunks.size())));
+              .concat(String.valueOf(fileInfo.chunks().size())));
 
       // Call the upload method
-      var response = fileUploadApi.upload(metadata, chunks.iterator());
+      var response = fileUploadApi.upload(metadata, fileInfo.chunks().iterator());
 
       System.out.println("Upload completed. Server response: ".concat(String.valueOf(response)));
     } catch (Exception e) {
@@ -133,21 +126,6 @@ public class Main {
       System.err.println(e.getMessage());
       e.printStackTrace();
     }
-  }
-
-  private List<byte[]> readFileInChunks(String filePath, int chunkSize) throws IOException {
-    List<byte[]> chunks = new ArrayList<>();
-    try (FileInputStream fis = new FileInputStream(filePath)) {
-      byte[] buffer = new byte[chunkSize];
-      int bytesRead;
-      while ((bytesRead = fis.read(buffer)) != -1) {
-        // Copy only valid bytes
-        byte[] chunk = new byte[bytesRead];
-        System.arraycopy(buffer, 0, chunk, 0, bytesRead);
-        chunks.add(chunk);
-      }
-    }
-    return chunks;
   }
 
   private void getDocumentById(String tenantUuid, Integer documentId) {
