@@ -1,8 +1,8 @@
 package com.company.example;
 
-import com.company.example.document.ContentType;
-import com.company.example.document.DocumentUtil;
 import com.company.example.document.FileInfo;
+import com.company.example.document.FileUtils;
+import com.company.example.document.MimeType;
 import com.numarics.engine.fusion.client.ClientApi;
 import com.numarics.engine.fusion.client.ClientCreateResponse;
 import com.numarics.engine.fusion.document.DocumentApi;
@@ -48,8 +48,9 @@ public class Main {
       // TODO: Uncomment the relevant section of the code that you would like to test.
 
       // String tenantUuid = createClient();
-      // chunkUploadDocument(tenantUuid, "income.pdf", ContentType.PDF);
-      // Integer documentId = uploadDocument(tenantUuid, "income.pdf", ContentType.PDF);
+      // chunkUploadDocument(tenantUuid, "src/main/resources/files/income.pdf", MimeType.PDF);
+      // Integer documentId = uploadDocument(tenantUuid, "src/main/resources/files/income.pdf",
+      // MimeType.PDF);
 
       // getDocumentById(tenantUuid, documentId);
       // downloadDocument(tenantUuid, 6);
@@ -84,8 +85,8 @@ public class Main {
     return clientCreateResponse.getTenantUuid();
   }
 
-  private int uploadDocument(String tenantUuid, String filePath, ContentType contentType) {
-    FileInfo fileInfo = DocumentUtil.getFileInfo(filePath, contentType.getValue());
+  private int uploadDocument(String tenantUuid, String filePath, MimeType mimeType) {
+    FileInfo fileInfo = FileUtils.getFileInfo(filePath, mimeType.getValue());
     DocumentUploadResponse documentUploadResponse =
         documentApi.upload(
             tenantUuid,
@@ -99,8 +100,8 @@ public class Main {
     return (int) documentUploadResponse.getId();
   }
 
-  private void chunkUploadDocument(String tenantUuid, String filePath, ContentType contentType) {
-    FileInfo fileInfo = DocumentUtil.getFileInfo(filePath, contentType.getValue());
+  private void chunkUploadDocument(String tenantUuid, String filePath, MimeType mimeType) {
+    FileInfo fileInfo = FileUtils.getFileInfo(filePath, mimeType.getValue());
     try {
       // Build metadata
       FileMetadataRequest metadata =
@@ -145,10 +146,10 @@ public class Main {
         documentApi.update(
             tenantUuid,
             documentId,
-            "update_archive.pdf",
             null,
             null,
             null,
+            List.of(40, 44, 43, 41),
             null,
             null,
             null,
@@ -164,6 +165,9 @@ public class Main {
     DocumentSearchResponse searchResponse =
         documentApi.search(
             tenantUuid,
+            null,
+            null,
+            null,
             null,
             null,
             null,

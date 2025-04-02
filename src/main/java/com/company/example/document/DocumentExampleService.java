@@ -109,6 +109,9 @@ public class DocumentExampleService {
     Boolean isNewDocument = false;
     Boolean includePreview = false;
     Boolean includeContent = false;
+    Set<Short> paymentStatuses = Set.of((short) 1);
+    String paymentStatusUpdatedAtFrom = "2024-01-01";
+    String paymentStatusUpdatedAtTo = "2024-01-01";
     Integer offset = 0;
     Integer limit = 10;
     String sortBy = "created";
@@ -129,6 +132,9 @@ public class DocumentExampleService {
             isNewDocument,
             includePreview,
             includeContent,
+            paymentStatuses,
+            paymentStatusUpdatedAtFrom,
+            paymentStatusUpdatedAtTo,
             offset,
             limit,
             sortBy,

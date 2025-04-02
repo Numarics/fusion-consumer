@@ -1,6 +1,6 @@
 package com.company.example.document;
 
-public enum ContentType {
+public enum MimeType {
   PDF("application/pdf"),
   PNG("image/png"),
   JPG("image/jpeg"),
@@ -8,7 +8,7 @@ public enum ContentType {
 
   private final String value;
 
-  ContentType(String value) {
+  MimeType(String value) {
     this.value = value;
   }
 

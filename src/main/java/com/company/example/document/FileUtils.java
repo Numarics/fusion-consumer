@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
-public final class DocumentUtil {
+public final class FileUtils {
 
   public static FileInfo getFileInfo(String filePath, String contentType) {
     try {
