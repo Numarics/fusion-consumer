@@ -26,42 +26,36 @@ public class DocumentExampleService {
 
   public DocumentUploadResponse upload() {
     String tenantUuid =
-        "tenant-uuid-example"; // Use one from response for onboarding partner client.
+        "tenant-uuid-example"; // Use one from a response for an onboarding partner client.
     String documentName = "example_doc.pdf";
     Long documentSize = 12345L;
     String contentType = "application/pdf";
     String documentContent = "document_content"; // Document content converted to Base64
     Boolean isScanned = false;
-    DocumentUploadResponse documentUploadResponse =
-        documentApi.upload(
-            tenantUuid, documentName, documentSize, contentType, documentContent, null, isScanned);
-    System.out.println(documentUploadResponse);
-    return documentUploadResponse;
+    return documentApi.upload(
+        tenantUuid, documentName, documentSize, contentType, documentContent, null, isScanned);
   }
 
   public DocumentDetailsResponse getById() {
     String tenantUuid =
-        "tenant-uuid-example"; // Use one from response for onboarding partner client.
-    Integer documentId = 1; // Use one from response for upload document.
+        "tenant-uuid-example"; // Use one from a response for an onboarding partner client.
+    Integer documentId = 1; // Use one from response for an upload document.
     Boolean includePreview = false;
     Boolean includeContent = false;
-    DocumentDetailsResponse response =
-        documentApi.getById(tenantUuid, documentId, includePreview, includeContent);
-    System.out.println(response);
-    return response;
+    return documentApi.getById(tenantUuid, documentId, includePreview, includeContent);
   }
 
   public DocumentDownloadResponse download() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    Integer documentId = 1; // Use one from response for upload document.
-    DocumentDownloadResponse response = documentApi.download(tenantUuid, documentId);
-    System.out.println(response);
-    return response;
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    Integer documentId = 1; // Use one from response for an upload document.
+    return documentApi.download(tenantUuid, documentId);
   }
 
   public DocumentUpdateResponse update() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    Integer documentId = 1; // Use one from response for upload document.
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    Integer documentId = 1; // Use one from response for an upload document.
     String name = "example_doc_1.pdf";
     Short type = 1;
     Short status = 1;
@@ -74,28 +68,26 @@ public class DocumentExampleService {
     String vatRate = "0.1";
     String totalAmount = "100";
     String currency = "CHF";
-    DocumentUpdateResponse response =
-        documentApi.update(
-            tenantUuid,
-            documentId,
-            name,
-            type,
-            status,
-            tags,
-            vendorName,
-            vendorAddress,
-            vendorTaxId,
-            dueDate,
-            documentDate,
-            vatRate,
-            totalAmount,
-            currency);
-    System.out.println(response);
-    return response;
+    return documentApi.update(
+        tenantUuid,
+        documentId,
+        name,
+        type,
+        status,
+        tags,
+        vendorName,
+        vendorAddress,
+        vendorTaxId,
+        dueDate,
+        documentDate,
+        vatRate,
+        totalAmount,
+        currency);
   }
 
   public DocumentSearchResponse search() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
     String term = "example_doc_1.pdf";
     Set<Integer> tags = Set.of(1);
     Set<Short> statuses = Set.of((short) 1);
@@ -116,89 +108,76 @@ public class DocumentExampleService {
     Integer limit = 10;
     String sortBy = "created";
     String orderBy = "desc";
-    DocumentSearchResponse response =
-        documentApi.search(
-            tenantUuid,
-            term,
-            tags,
-            statuses,
-            createdAtFrom,
-            createdAtTo,
-            contactName,
-            documentDateFrom,
-            documentDateTo,
-            documentType,
-            isDmbDocument,
-            isNewDocument,
-            includePreview,
-            includeContent,
-            paymentStatuses,
-            paymentStatusUpdatedAtFrom,
-            paymentStatusUpdatedAtTo,
-            offset,
-            limit,
-            sortBy,
-            orderBy);
-    System.out.println(response);
-    return response;
+    return documentApi.search(
+        tenantUuid,
+        term,
+        tags,
+        statuses,
+        createdAtFrom,
+        createdAtTo,
+        contactName,
+        documentDateFrom,
+        documentDateTo,
+        documentType,
+        isDmbDocument,
+        isNewDocument,
+        includePreview,
+        includeContent,
+        paymentStatuses,
+        paymentStatusUpdatedAtFrom,
+        paymentStatusUpdatedAtTo,
+        offset,
+        limit,
+        sortBy,
+        orderBy);
   }
 
   public DocumentPreviewResponse preview() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    Integer documentId = 1; // Use one from response for upload document.
-    DocumentPreviewResponse response = documentApi.preview(tenantUuid, documentId);
-    System.out.println(response);
-    return response;
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    Integer documentId = 1; // Use one from response for an upload document.
+    return documentApi.preview(tenantUuid, documentId);
   }
 
   public DocumentCountByStatusResponse getDocumentCountByStatus() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    DocumentCountByStatusResponse response = documentApi.getDocumentCountByStatus(tenantUuid);
-    System.out.println(response);
-    return response;
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    return documentApi.getDocumentCountByStatus(tenantUuid);
   }
 
   public DocumentBulkActionResponse deleteDocumentsPermanently() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    List<Integer> documentIds = List.of(1); // Use one from response for upload document.
-    DocumentBulkActionResponse response =
-        documentApi.deleteDocumentsPermanently(tenantUuid, documentIds);
-    System.out.println(response);
-    return response;
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    List<Integer> documentIds = List.of(1); // Use one from response for an upload document.
+    return documentApi.deleteDocumentsPermanently(tenantUuid, documentIds);
   }
 
   public DocumentBulkActionResponse deleteDocumentsSoftly() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    List<Integer> documentIds = List.of(1); // Use one from response for upload document.
-    DocumentBulkActionResponse response =
-        documentApi.deleteDocumentsSoftly(tenantUuid, documentIds);
-    System.out.println(response);
-    return response;
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    List<Integer> documentIds = List.of(1); // Use one from response for an upload document.
+    return documentApi.deleteDocumentsSoftly(tenantUuid, documentIds);
   }
 
   public DocumentBulkActionResponse archive() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    List<Integer> documentIds = List.of(1); // Use one from response for upload document.
-    DocumentBulkActionResponse response = documentApi.archive(tenantUuid, documentIds);
-    System.out.println(response);
-    return response;
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    List<Integer> documentIds = List.of(1); // Use one from response for an upload document.
+    return documentApi.archive(tenantUuid, documentIds);
   }
 
   public DocumentBulkActionResponse restore() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    List<Integer> documentIds = List.of(1); // Use one from response for upload document.
-    DocumentBulkActionResponse response = documentApi.restore(tenantUuid, documentIds);
-    System.out.println(response);
-    return response;
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    List<Integer> documentIds = List.of(1); // Use one from response for an upload document.
+    return documentApi.restore(tenantUuid, documentIds);
   }
 
   public UpdatePaymentStatusResponse updatePaymentStatus() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    Integer documentId = 1; // Use one from response for upload document.
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    Integer documentId = 1; // Use one from response for an upload document.
     Short paymentStatus = 1;
-    UpdatePaymentStatusResponse response =
-        documentApi.updatePaymentStatus(tenantUuid, documentId, paymentStatus);
-    System.out.println(response);
-    return response;
+    return documentApi.updatePaymentStatus(tenantUuid, documentId, paymentStatus);
   }
 }

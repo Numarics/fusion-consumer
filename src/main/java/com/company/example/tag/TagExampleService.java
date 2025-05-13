@@ -17,64 +17,57 @@ public class TagExampleService {
   }
 
   public TagDetailsResponse getById() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
     Integer tagId = 1;
-    TagDetailsResponse response = tagApi.getById(tenantUuid, tagId);
-    System.out.println(response);
-    return response;
+    return tagApi.getById(tenantUuid, tagId);
   }
 
   public TagGetAllResponse getAll() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
-    TagGetAllResponse response = tagApi.getAll(tenantUuid);
-    System.out.println(response);
-    return response;
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
+    return tagApi.getAll(tenantUuid);
   }
 
   public TagDetailsResponse createRootTag() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
     String name = "Demo Root Tag";
     String color = "#FFE4E5E1";
-    TagDetailsResponse response = tagApi.createRootTag(tenantUuid, name, color);
-    System.out.println(response);
-    return response;
+    return tagApi.createRootTag(tenantUuid, name, color);
   }
 
   public TagDetailsResponse createChildTag() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
     String name = "Demo Root Tag";
     Integer parentId = 1;
-    TagDetailsResponse response = tagApi.createChildTag(tenantUuid, name, parentId);
-    System.out.println(response);
-    return response;
+    return tagApi.createChildTag(tenantUuid, name, parentId);
   }
 
-
   public TagDetailsResponse updateRootTag() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
     Integer tagId = 10;
     String name = "Demo Tag Update";
     String color = "#FFE4E5E2";
-    TagDetailsResponse response = tagApi.updateRootTag(tenantUuid, tagId, name, color);
-    System.out.println(response);
-    return response;
+    Boolean isHidden = false;
+    return tagApi.updateRootTag(tenantUuid, tagId, name, color, isHidden);
   }
 
   public TagDetailsResponse updateChildTag() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
     Integer tagId = 10;
     String name = "Demo Tag Update";
     Integer parentId = 1;
-    TagDetailsResponse response = tagApi.updateChildTag(tenantUuid, tagId, name, parentId);
-    System.out.println(response);
-    return response;
+    return tagApi.updateChildTag(tenantUuid, tagId, name, parentId);
   }
 
   public TagDeleteResponse delete() {
-    String tenantUuid = "demo-tenant-uuid"; // Use one from response for onboarding partner client.
+    String tenantUuid =
+        "demo-tenant-uuid"; // Use one from a response for an onboarding partner client.
     Integer tagId = 10;
-    TagDeleteResponse response = tagApi.delete(tenantUuid, tagId);
-    System.out.println(response);
-    return response;
+    return tagApi.delete(tenantUuid, tagId);
   }
 }

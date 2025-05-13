@@ -15,15 +15,12 @@ public class ClientExampleService {
     this.clientApi = clientApi;
   }
 
-  public String createClient() {
+  public ClientCreateResponse createClient() {
     String clientReference = "";
     String email = "example@email.ch";
     String name = "ref no";
-    int type = 2; // 1 is enterprise, 2 is private person
+    int type = 2; // 1 is enterprise, 2 is a private person
     List<Integer> modules = List.of(2); // 2 for Docubox
-    ClientCreateResponse clientCreateResponse =
-        clientApi.create(name, email, clientReference, type, modules);
-    System.out.println(clientCreateResponse);
-    return clientCreateResponse.getTenantUuid();
+    return clientApi.create(name, email, clientReference, type, modules);
   }
 }

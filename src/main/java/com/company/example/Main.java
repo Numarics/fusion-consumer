@@ -248,7 +248,7 @@ public class Main {
 
   private void updateRootTag(String tenantUuid, Integer tagId) {
     TagDetailsResponse rootTagUpdateResponse =
-        tagApi.updateRootTag(tenantUuid, tagId, "Demo Tag Update", "#FFE4E5E2");
+        tagApi.updateRootTag(tenantUuid, tagId, "Demo Tag Update", "#FFE4E5E2", null);
     System.out.println(rootTagUpdateResponse);
   }
 

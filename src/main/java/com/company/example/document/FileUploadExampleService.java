@@ -19,7 +19,7 @@ public class FileUploadExampleService {
 
   private void chunkUploadDocument() {
     String tenantUuid =
-        "tenant-uuid-example"; // Use one from response for onboarding partner client.
+        "tenant-uuid-example"; // Use one from a response for an onboarding partner client.
     String documentName = "example_doc.pdf";
     Long documentSize = 12345L;
     String contentType = "application/pdf";
@@ -37,7 +37,7 @@ public class FileUploadExampleService {
               .addAllTags(new ArrayList<>())
               .build();
 
-      // Read file in chunks
+      // Read a file in chunks
       List<byte[]> chunks = new ArrayList<>();
 
       System.out.println(
