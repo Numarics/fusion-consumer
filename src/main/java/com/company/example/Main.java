@@ -5,6 +5,8 @@ import com.company.example.document.FileUtils;
 import com.company.example.document.MimeType;
 import com.numarics.engine.fusion.client.ClientApi;
 import com.numarics.engine.fusion.client.ClientCreateResponse;
+import com.numarics.engine.fusion.client.ClientOffboardingResponse;
+import com.numarics.engine.fusion.client.GetClientInfoResponse;
 import com.numarics.engine.fusion.document.DocumentApi;
 import com.numarics.engine.fusion.document.DocumentBulkActionResponse;
 import com.numarics.engine.fusion.document.DocumentCountByStatusResponse;
@@ -48,6 +50,9 @@ public class Main {
       // TODO: Uncomment the relevant section of the code that you would like to test.
 
       // String tenantUuid = createClient();
+      // getClientInfo(tenantUuid);
+      // initiateClientOffboarding(tenantUuid);
+
       // chunkUploadDocument(tenantUuid, "src/main/resources/files/income.pdf", MimeType.PDF);
       // Integer documentId = uploadDocument(tenantUuid, "src/main/resources/files/income.pdf",
       // MimeType.PDF);
@@ -83,6 +88,16 @@ public class Main {
         clientApi.create("Demo Client", "demo-client@example.ch", "demo-client", 2, List.of(2));
     System.out.println(clientCreateResponse);
     return clientCreateResponse.getTenantUuid();
+  }
+
+  private void getClientInfo(String tenantUuid) {
+    GetClientInfoResponse response = clientApi.getInfo(tenantUuid);
+    System.out.println(response);
+  }
+
+  private void initiateClientOffboarding(String tenantUuid) {
+    ClientOffboardingResponse response = clientApi.initiateOffboarding(tenantUuid);
+    System.out.println(response);
   }
 
   private int uploadDocument(String tenantUuid, String filePath, MimeType mimeType) {
